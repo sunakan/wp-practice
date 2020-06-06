@@ -1,3 +1,6 @@
+*.zip
+*.tar.gz
+wordpress*
 
 # Created by https://www.toptal.com/developers/gitignore/api/wordpress,vim,emacs,windows,macos,intellij+all,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=wordpress,vim,emacs,windows,macos,intellij+all,linux
