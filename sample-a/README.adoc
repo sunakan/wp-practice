@@ -1,0 +1,7 @@
+== WordPressその1
+
+----
+$ make setup-wordpress
+$ make build
+$ make bash
+----
