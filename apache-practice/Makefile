@@ -13,6 +13,7 @@ up:
 	docker run \
 		--rm \
 		--interactive \
+		--init \
 		--hostname my-apache \
 		--name my-apache \
 		--tty \
@@ -22,6 +23,7 @@ up:
 		--mount type=bind,source=$(PWD)/html/,target=/var/www/html/,readonly \
 		--mount type=bind,source=$(PWD)/cgi-bin/,target=/var/www/cgi-bin/ \
 		--mount type=bind,source=$(PWD)/php.conf,target=/etc/httpd/conf.d/php.conf,readonly \
+		--mount type=bind,source=$(PWD)/php.ini,target=/etc/php.ini,readonly \
 		--workdir /usr/local/app/ \
 		$(DOCKER_REPOSITORY_NAME):latest
 
@@ -75,9 +77,14 @@ document-root:
 	grep --recursive --line-number DocumentRoot /etc/httpd/
 .PHONY: log-path
 log-path:
-	grep --recursive --line-number --extended-regexp "(ErrorLog|CustomLog)" /etc/httpd/
+	grep --recursive --line-number --extended-regexp '(ErrorLog|CustomLog)' /etc/httpd/
 .PHONY: cgi-bin
 cgi-bin:
-	grep --recursive --line-number "ScriptAlias /cgi-bin/" /etc/httpd/
+	grep --recursive --line-number 'ScriptAlias /cgi-bin/' /etc/httpd/
 php-module:
-	grep --recursive --line-number "LoadModule php" /etc/httpd/
+	grep --recursive --line-number 'LoadModule php' /etc/httpd/
+################################################################################
+# PHP (PHPのTips的な奴)
+################################################################################
+php-memory-limit:
+	grep --recursive --line-number 'memory_limit' /etc/php.ini
