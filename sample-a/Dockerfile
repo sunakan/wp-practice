@@ -8,4 +8,8 @@ RUN yum install --assumeyes https://dev.mysql.com/get/mysql80-community-release-
 RUN yum-config-manager --disable mysql80-community
 RUN yum-config-manager --enable mysql57-community
 RUN yum install --assumeyes mysql-community-client
+RUN yum install --assumeyes make
 COPY --chown=apache:apache ./wordpress /var/www/html/_wp
+COPY --chown=apache:apache ./entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+CMD ["/entrypoint.sh"]

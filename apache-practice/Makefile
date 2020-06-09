@@ -25,7 +25,7 @@ up:
 		--mount type=bind,source=$(PWD)/php.conf,target=/etc/httpd/conf.d/php.conf,readonly \
 		--mount type=bind,source=$(PWD)/php.ini,target=/etc/php.ini,readonly \
 		--workdir /usr/local/app/ \
-		$(DOCKER_REPOSITORY_NAME):latest
+		$(DOCKER_REPOSITORY_NAME):latest bash
 
 .PHONY: clean
 clean:
@@ -81,6 +81,7 @@ log-path:
 .PHONY: cgi-bin
 cgi-bin:
 	grep --recursive --line-number 'ScriptAlias /cgi-bin/' /etc/httpd/
+.PHONY: php-module
 php-module:
 	grep --recursive --line-number 'LoadModule php' /etc/httpd/
 ################################################################################
